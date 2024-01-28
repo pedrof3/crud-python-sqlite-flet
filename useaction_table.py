@@ -15,4 +15,5 @@ def create_table():
     """)
     conn.commit()
     
+    
 create_table()

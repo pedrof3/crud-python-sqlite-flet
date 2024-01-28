@@ -19,6 +19,7 @@ def show_delete(e):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM clients WHERE id=?", (my_id,))
         conn.commit()
+        conn.close()
         print("Deletado com sucesso")
         table.rows.clear()
         call_db()
@@ -45,6 +46,7 @@ def save_update(e):
         cursor.execute("UPDATE clients SET name=?, last_name=?, birthdate=?, email=? WHERE id=?",
                        (name_edit.value, last_name_edit.value, birthdate_edit.value, email_edit.value, my_id))
         conn.commit()
+        conn.close()
         print("Cadastro alterado!")
         
         table.rows.clear()
@@ -57,9 +59,11 @@ def save_update(e):
         print(e)    
 
 dlg = Container(
-    bgcolor="green",
+    border=border.all(2, "blue"),
+    border_radius=20,
     padding=10,
     content= Column([
+        
         Row([
             Text("Editar dados", size=20, weight="bold"),
             IconButton(icon="close", on_click=hide_dlg)
@@ -68,7 +72,7 @@ dlg = Container(
         last_name_edit,
         birthdate_edit,
         email_edit,
-        ElevatedButton("Salvar edição", on_click=save_update)
+        ElevatedButton("Salvar edição", color="white", bgcolor="blue", on_click=save_update),
     ])
 )
 
